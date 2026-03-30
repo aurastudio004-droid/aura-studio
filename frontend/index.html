@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aura Studio - Premium Pakistani Stitched Ladies Suits. Shop elegant formal, casual, party wear and bridal suits online.">
+    <meta name="keywords" content="Pakistani suits, ladies suits, stitched suits, formal wear, party wear, bridal suits, Aura Studio">
+    <title>Aura Studio - Premium Pakistani Stitched Ladies Suits</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-content">
+                <div class="top-bar-left">
+                    <span><i class="fas fa-truck"></i> Free Delivery on Orders Above Rs. 5000</span>
+                </div>
+                <div class="top-bar-right">
+                    <a href="https://wa.me/923214153050" target="_blank"><i class="fab fa-whatsapp"></i> +92 321 4153050</a>
+                    <a href="mailto:info@aurastudiopk.com"><i class="fas fa-envelope"></i> info@aurastudiopk.com</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <h1>Aura<span>Studio</span></h1>
+                    </a>
+                </div>
+                
+                <nav class="nav-menu" id="navMenu">
+                    <ul>
+                        <li><a href="index.html" class="active">Home</a></li>
+                        <li class="dropdown">
+                            <a href="products.html">Shop <i class="fas fa-chevron-down"></i></a>
+                            <ul class="dropdown-menu" id="categoryDropdown">
+                                <li><a href="products.html">All Products</a></li>
+                                <!-- Categories will be loaded dynamically -->
+                            </ul>
+                        </li>
+                        <li><a href="products.html?featured=true">Featured</a></li>
+                        <li><a href="products.html?newArrivals=true">New Arrivals</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+
+                <div class="header-icons">
+                    <a href="#" class="search-icon" id="searchToggle"><i class="fas fa-search"></i></a>
+                    <a href="cart.html" class="cart-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </a>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-bar" id="searchBar">
+                <form action="products.html" method="GET">
+                    <input type="text" name="search" placeholder="Search for suits...">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-slider">
+            <div class="hero-slide active" style="background-image: url('images/hero-1.jpg');">
+                <div class="hero-content">
+                    <h2>Elegant Collection 2026</h2>
+                    <p>Discover our premium Pakistani stitched suits crafted with perfection</p>
+                    <a href="products.html" class="btn btn-primary">Shop Now</a>
+                </div>
+            </div>
+            <div class="hero-slide" style="background-image: url('images/hero-2.jpg');">
+                <div class="hero-content">
+                    <h2>Bridal Collection</h2>
+                    <p>Make your special day more beautiful with our exclusive bridal wear</p>
+                    <a href="products.html?category=bridal-collection" class="btn btn-primary">Explore</a>
+                </div>
+            </div>
+            <div class="hero-slide" style="background-image: url('images/hero-3.jpg');">
+                <div class="hero-content">
+                    <h2>Summer Lawn Collection</h2>
+                    <p>Stay cool and stylish with our breathable lawn suits</p>
+                    <a href="products.html?category=lawn-suits" class="btn btn-primary">View Collection</a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-controls">
+            <button class="hero-prev"><i class="fas fa-chevron-left"></i></button>
+            <div class="hero-dots"></div>
+            <button class="hero-next"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-item">
+                    <i class="fas fa-truck"></i>
+                    <h3>Free Delivery</h3>
+                    <p>On orders above Rs. 5000</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-undo"></i>
+                    <h3>Easy Returns</h3>
+                    <p>7 days return policy</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Secure Payment</h3>
+                    <p>100% secure checkout</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-headset"></i>
+                    <h3>24/7 Support</h3>
+                    <p>Dedicated customer support</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Shop by Category</h2>
+                <p>Explore our diverse collection of Pakistani suits</p>
+            </div>
+            <div class="categories-grid" id="categoriesGrid">
+                <!-- Categories will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="products-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured Products</h2>
+                <p>Handpicked designs for you</p>
+                <a href="products.html?featured=true" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="products-grid" id="featuredProducts">
+                <!-- Products will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Banner -->
+    <section class="promo-banner">
+        <div class="container">
+            <div class="banner-content">
+                <h2>Special Eid Collection</h2>
+                <p>Get up to 30% off on selected items</p>
+                <a href="products.html" class="btn btn-light">Shop Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Arrivals -->
+    <section class="products-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>New Arrivals</h2>
+                <p>Latest additions to our collection</p>
+                <a href="products.html?newArrivals=true" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="products-grid" id="newArrivals">
+                <!-- Products will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Sellers -->
+    <section class="products-section bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h2>Best Sellers</h2>
+                <p>Most loved by our customers</p>
+                <a href="products.html?bestSeller=true" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="products-grid" id="bestSellers">
+                <!-- Products will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-choose-us">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Choose Aura Studio?</h2>
+                <p>Your trusted destination for premium Pakistani suits</p>
+            </div>
+            <div class="why-grid">
+                <div class="why-item">
+                    <div class="why-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3>Premium Quality</h3>
+                    <p>We use only the finest fabrics and materials to ensure lasting quality and comfort.</p>
+                </div>
+                <div class="why-item">
+                    <div class="why-icon">
+                        <i class="fas fa-cut"></i>
+                    </div>
+                    <h3>Perfect Stitching</h3>
+                    <p>Expert tailors ensure every stitch is perfect for the ideal fit.</p>
+                </div>
+                <div class="why-item">
+                    <div class="why-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>Unique Designs</h3>
+                    <p>Exclusive designs that blend traditional elegance with modern trends.</p>
+                </div>
+                <div class="why-item">
+                    <div class="why-icon">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <h3>Customer First</h3>
+                    <p>Your satisfaction is our priority with hassle-free shopping experience.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instagram Feed -->
+    <section class="instagram-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Follow Us on Instagram</h2>
+                <p>@aurastudiopk</p>
+            </div>
+            <div class="instagram-grid">
+                <a href="https://instagram.com/aurastudiopk" target="_blank" class="insta-item">
+                    <img src="images/insta-1.jpg" alt="Instagram">
+                    <div class="insta-overlay"><i class="fab fa-instagram"></i></div>
+                </a>
+                <a href="https://instagram.com/aurastudiopk" target="_blank" class="insta-item">
+                    <img src="images/insta-2.jpg" alt="Instagram">
+                    <div class="insta-overlay"><i class="fab fa-instagram"></i></div>
+                </a>
+                <a href="https://instagram.com/aurastudiopk" target="_blank" class="insta-item">
+                    <img src="images/insta-3.jpg" alt="Instagram">
+                    <div class="insta-overlay"><i class="fab fa-instagram"></i></div>
+                </a>
+                <a href="https://instagram.com/aurastudiopk" target="_blank" class="insta-item">
+                    <img src="images/insta-4.jpg" alt="Instagram">
+                    <div class="insta-overlay"><i class="fab fa-instagram"></i></div>
+                </a>
+                <a href="https://instagram.com/aurastudiopk" target="_blank" class="insta-item">
+                    <img src="images/insta-5.jpg" alt="Instagram">
+                    <div class="insta-overlay"><i class="fab fa-instagram"></i></div>
+                </a>
+                <a href="https://instagram.com/aurastudiopk" target="_blank" class="insta-item">
+                    <img src="images/insta-6.jpg" alt="Instagram">
+                    <div class="insta-overlay"><i class="fab fa-instagram"></i></div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Subscribe to Our Newsletter</h2>
+                <p>Get updates about new arrivals and special offers</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" placeholder="Enter your email address" required>
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <h2>Aura<span>Studio</span></h2>
+                    </div>
+                    <p>Your premier destination for exquisite Pakistani stitched ladies suits. We bring you the finest craftsmanship and elegant designs.</p>
+                    <div class="footer-social">
+                        <a href="https://facebook.com/aurastudiopk" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://instagram.com/aurastudiopk" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://twitter.com/aurastudiopk" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://tiktok.com/@aurastudiopk" target="_blank"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://youtube.com/@aurastudiopk" target="_blank"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Shop</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="track-order.html">Track Order</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Categories</h3>
+                    <ul id="footerCategories">
+                        <li><a href="products.html?category=formal-suits">Formal Suits</a></li>
+                        <li><a href="products.html?category=casual-suits">Casual Suits</a></li>
+                        <li><a href="products.html?category=party-wear">Party Wear</a></li>
+                        <li><a href="products.html?category=bridal-collection">Bridal Collection</a></li>
+                        <li><a href="products.html?category=lawn-suits">Lawn Suits</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <span>+92 321 4153050</span>
+                        </li>
+                        <li>
+                            <i class="fab fa-whatsapp"></i>
+                            <a href="https://wa.me/923214153050">WhatsApp Us</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:info@aurastudiopk.com">info@aurastudiopk.com</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Pakistan</span>
+                        </li>
+                    </ul>
+                    <div class="payment-methods">
+                        <h4>Payment Methods</h4>
+                        <div class="payment-icons">
+                            <img src="images/easypaisa.png" alt="Easypaisa">
+                            <img src="images/jazzcash.png" alt="JazzCash">
+                            <img src="images/bank.png" alt="Bank Transfer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Aura Studio. All Rights Reserved.</p>
+                <div class="footer-links">
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="terms-conditions.html">Terms & Conditions</a>
+                    <a href="return-policy.html">Return Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/923214153050" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

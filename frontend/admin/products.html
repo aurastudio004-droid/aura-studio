@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Aura Studio Admin</title>
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>Aura<span>Studio</span></h2>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="products.html" class="nav-item active">
+                <i class="fas fa-box"></i>
+                <span>Products</span>
+            </a>
+            <a href="categories.html" class="nav-item">
+                <i class="fas fa-tags"></i>
+                <span>Categories</span>
+            </a>
+            <a href="orders.html" class="nav-item">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Orders</span>
+            </a>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <a href="../index.html" target="_blank" class="nav-item">
+                <i class="fas fa-globe"></i>
+                <span>View Website</span>
+            </a>
+            <button class="nav-item logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="topbar">
+            <button class="mobile-sidebar-toggle" id="mobileSidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1>Products</h1>
+            <div class="topbar-right">
+                <div class="admin-profile">
+                    <i class="fas fa-user-circle"></i>
+                    <span id="adminName">Admin</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2>All Products</h2>
+                    <a href="add-product.html" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Add Product
+                    </a>
+                </div>
+                <div class="card-body">
+                    <!-- Search & Filter -->
+                    <div class="table-controls">
+                        <div class="search-box">
+                            <input type="text" id="searchProduct" placeholder="Search products...">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <select id="filterCategory">
+                            <option value="">All Categories</option>
+                        </select>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Price</th>
+                                    <th>Stock</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productsTable">
+                                <tr>
+                                    <td colspan="7" class="text-center">Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/admin.js"></script>
+    <script>
+        let allProducts = [];
+        
+        async function loadProducts() {
+            const token = localStorage.getItem('admin_token');
+            
+            try {
+                const response = await fetch(`${API_URL}/products/admin/all`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                allProducts = await response.json();
+                renderProducts(allProducts);
+                
+            } catch (error) {
+                console.error('Error loading products:', error);
+            }
+        }
+        
+        function renderProducts(products) {
+            const tbody = document.getElementById('productsTable');
+            
+            if (products.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="text-center">No products found</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = products.map(product => `
+                <tr>
+                    <td>
+                        <img src="${product.images?.[0] || '../images/product-placeholder.jpg'}" alt="${product.name}" style="width: 50px; height: 60px; object-fit: cover; border-radius: 4px;">
+                    </td>
+                    <td><strong>${product.name}</strong></td>
+                    <td>${product.category?.name || 'N/A'}</td>
+                    <td>Rs. ${product.price.toLocaleString()}</td>
+                    <td>${product.stock}</td>
+                    <td>
+                        <span class="badge badge-${product.isActive ? 'success' : 'danger'}">
+                            ${product.isActive ? 'Active' : 'Inactive'}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <a href="edit-product.html?id=${product._id}" class="btn btn-sm btn-info" title="Edit">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <button onclick="deleteProduct('${product._id}')" class="btn btn-sm btn-danger" title="Delete">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        async function deleteProduct(id) {
+            if (!confirm('Are you sure you want to delete this product?')) return;
+            
+            const token = localStorage.getItem('admin_token');
+            
+            try {
+                const response = await fetch(`${API_URL}/products/${id}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                if (response.ok) {
+                    alert('Product deleted successfully');
+                    loadProducts();
+                }
+            } catch (error) {
+                alert('Error deleting product');
+            }
+        }
+        
+        // Search
+        document.getElementById('searchProduct')?.addEventListener('input', (e) => {
+            const search = e.target.value.toLowerCase();
+            const filtered = allProducts.filter(p => 
+                p.name.toLowerCase().includes(search) ||
+                p.category?.name.toLowerCase().includes(search)
+            );
+            renderProducts(filtered);
+        });
+        
+        // Load categories for filter
+        async function loadCategories() {
+            try {
+                const response = await fetch(`${API_URL}/categories`);
+                const categories = await response.json();
+                
+                const select = document.getElementById('filterCategory');
+                categories.forEach(cat => {
+                    const option = document.createElement('option');
+                    option.value = cat._id;
+                    option.textContent = cat.name;
+                    select.appendChild(option);
+                });
+                
+                select.addEventListener('change', () => {
+                    if (select.value) {
+                        const filtered = allProducts.filter(p => p.category?._id === select.value);
+                        renderProducts(filtered);
+                    } else {
+                        renderProducts(allProducts);
+                    }
+                });
+                
+            } catch (error) {
+                console.error('Error loading categories:', error);
+            }
+        }
+        
+        loadProducts();
+        loadCategories();
+    </script>
+</body>
+</html>

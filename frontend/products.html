@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Shop Pakistani Stitched Ladies Suits at Aura Studio. Browse our collection of formal, casual, party wear and bridal suits.">
+    <title>Shop - Aura Studio</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-content">
+                <div class="top-bar-left">
+                    <span><i class="fas fa-truck"></i> Free Delivery on Orders Above Rs. 5000</span>
+                </div>
+                <div class="top-bar-right">
+                    <a href="https://wa.me/923214153050" target="_blank"><i class="fab fa-whatsapp"></i> +92 321 4153050</a>
+                    <a href="mailto:info@aurastudiopk.com"><i class="fas fa-envelope"></i> info@aurastudiopk.com</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <h1>Aura<span>Studio</span></h1>
+                    </a>
+                </div>
+                
+                <nav class="nav-menu" id="navMenu">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li class="dropdown">
+                            <a href="products.html" class="active">Shop <i class="fas fa-chevron-down"></i></a>
+                            <ul class="dropdown-menu" id="categoryDropdown">
+                                <li><a href="products.html">All Products</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="products.html?featured=true">Featured</a></li>
+                        <li><a href="products.html?newArrivals=true">New Arrivals</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+
+                <div class="header-icons">
+                    <a href="#" class="search-icon" id="searchToggle"><i class="fas fa-search"></i></a>
+                    <a href="cart.html" class="cart-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </a>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="search-bar" id="searchBar">
+                <form action="products.html" method="GET">
+                    <input type="text" name="search" placeholder="Search for suits...">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 id="pageTitle">Our Products</h1>
+            <nav class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span>/</span>
+                <span id="breadcrumbCurrent">Shop</span>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="shop-section">
+        <div class="container">
+            <div class="shop-layout">
+                <!-- Sidebar Filters -->
+                <aside class="shop-sidebar" id="shopSidebar">
+                    <div class="sidebar-header">
+                        <h3>Filters</h3>
+                        <button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button>
+                    </div>
+
+                    <!-- Categories -->
+                    <div class="filter-group">
+                        <h4>Categories</h4>
+                        <ul class="filter-list" id="filterCategories">
+                            <li>
+                                <label>
+                                    <input type="radio" name="category" value="" checked>
+                                    <span>All Categories</span>
+                                </label>
+                            </li>
+                            <!-- Categories will be loaded dynamically -->
+                        </ul>
+                    </div>
+
+                    <!-- Price Range -->
+                    <div class="filter-group">
+                        <h4>Price Range</h4>
+                        <div class="price-inputs">
+                            <input type="number" id="minPrice" placeholder="Min" min="0">
+                            <span>-</span>
+                            <input type="number" id="maxPrice" placeholder="Max" min="0">
+                        </div>
+                        <button class="btn btn-sm" id="applyPrice">Apply</button>
+                    </div>
+
+                    <!-- Sizes -->
+                    <div class="filter-group">
+                        <h4>Sizes</h4>
+                        <div class="size-filters">
+                            <label class="size-filter">
+                                <input type="checkbox" name="size" value="XS">
+                                <span>XS</span>
+                            </label>
+                            <label class="size-filter">
+                                <input type="checkbox" name="size" value="S">
+                                <span>S</span>
+                            </label>
+                            <label class="size-filter">
+                                <input type="checkbox" name="size" value="M">
+                                <span>M</span>
+                            </label>
+                            <label class="size-filter">
+                                <input type="checkbox" name="size" value="L">
+                                <span>L</span>
+                            </label>
+                            <label class="size-filter">
+                                <input type="checkbox" name="size" value="XL">
+                                <span>XL</span>
+                            </label>
+                            <label class="size-filter">
+                                <input type="checkbox" name="size" value="XXL">
+                                <span>XXL</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary btn-block" id="clearFilters">Clear All Filters</button>
+                </aside>
+
+                <!-- Products Grid -->
+                <div class="shop-main">
+                    <!-- Toolbar -->
+                    <div class="shop-toolbar">
+                        <button class="filter-toggle" id="filterToggle">
+                            <i class="fas fa-filter"></i> Filters
+                        </button>
+                        <div class="toolbar-info">
+                            <span id="productCount">0 Products</span>
+                        </div>
+                        <div class="toolbar-sort">
+                            <label>Sort by:</label>
+                            <select id="sortBy">
+                                <option value="newest">Newest First</option>
+                                <option value="price-low">Price: Low to High</option>
+                                <option value="price-high">Price: High to Low</option>
+                                <option value="name">Name: A to Z</option>
+                            </select>
+                        </div>
+                        <div class="toolbar-view">
+                            <button class="view-btn active" data-view="grid"><i class="fas fa-th"></i></button>
+                            <button class="view-btn" data-view="list"><i class="fas fa-list"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Products Grid -->
+                    <div class="products-grid" id="productsGrid">
+                        <!-- Products will be loaded dynamically -->
+                    </div>
+
+                    <!-- Loading -->
+                    <div class="loading" id="loading">
+                        <div class="spinner"></div>
+                        <p>Loading products...</p>
+                    </div>
+
+                    <!-- No Products -->
+                    <div class="no-products" id="noProducts" style="display: none;">
+                        <i class="fas fa-box-open"></i>
+                        <h3>No Products Found</h3>
+                        <p>Try adjusting your filters or search terms</p>
+                        <a href="products.html" class="btn btn-primary">View All Products</a>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination" id="pagination">
+                        <!-- Pagination will be loaded dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <h2>Aura<span>Studio</span></h2>
+                    </div>
+                    <p>Your premier destination for exquisite Pakistani stitched ladies suits.</p>
+                    <div class="footer-social">
+                        <a href="https://facebook.com/aurastudiopk" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://instagram.com/aurastudiopk" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://twitter.com/aurastudiopk" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://tiktok.com/@aurastudiopk" target="_blank"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://youtube.com/@aurastudiopk" target="_blank"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Shop</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-phone"></i><span>+92 321 4153050</span></li>
+                        <li><i class="fab fa-whatsapp"></i><a href="https://wa.me/923214153050">WhatsApp Us</a></li>
+                        <li><i class="fas fa-envelope"></i><a href="mailto:info@aurastudiopk.com">info@aurastudiopk.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Aura Studio. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/923214153050" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <button class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></button>
+
+    <script src="js/main.js"></script>
+    <script src="js/products.js"></script>
+</body>
+</html>

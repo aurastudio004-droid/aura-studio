@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders - Aura Studio Admin</title>
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>Aura<span>Studio</span></h2>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="products.html" class="nav-item">
+                <i class="fas fa-box"></i>
+                <span>Products</span>
+            </a>
+            <a href="categories.html" class="nav-item">
+                <i class="fas fa-tags"></i>
+                <span>Categories</span>
+            </a>
+            <a href="orders.html" class="nav-item active">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Orders</span>
+            </a>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <a href="../index.html" target="_blank" class="nav-item">
+                <i class="fas fa-globe"></i>
+                <span>View Website</span>
+            </a>
+            <button class="nav-item logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="topbar">
+            <button class="mobile-sidebar-toggle" id="mobileSidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1>Orders</h1>
+            <div class="topbar-right">
+                <div class="admin-profile">
+                    <i class="fas fa-user-circle"></i>
+                    <span id="adminName">Admin</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2>All Orders</h2>
+                </div>
+                <div class="card-body">
+                    <!-- Filters -->
+                    <div class="table-controls">
+                        <div class="search-box">
+                            <input type="text" id="searchOrder" placeholder="Search by order number or customer...">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <select id="filterStatus">
+                            <option value="">All Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="confirmed">Confirmed</option>
+                            <option value="processing">Processing</option>
+                            <option value="shipped">Shipped</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                        <select id="filterPayment">
+                            <option value="">All Payment Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="received">Received</option>
+                            <option value="verified">Verified</option>
+                            <option value="rejected">Rejected</option>
+                        </select>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Order #</th>
+                                    <th>Customer</th>
+                                    <th>Phone</th>
+                                    <th>Items</th>
+                                    <th>Total</th>
+                                    <th>Payment</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersTable">
+                                <tr>
+                                    <td colspan="9" class="text-center">Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/admin.js"></script>
+    <script>
+        let allOrders = [];
+        
+        async function loadOrders() {
+            const token = localStorage.getItem('admin_token');
+            
+            try {
+                const response = await fetch(`${API_URL}/orders`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                const data = await response.json();
+                allOrders = data.orders;
+                renderOrders(allOrders);
+                
+            } catch (error) {
+                console.error('Error loading orders:', error);
+            }
+        }
+        
+        function renderOrders(orders) {
+            const tbody = document.getElementById('ordersTable');
+            
+            if (orders.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="9" class="text-center">No orders found</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = orders.map(order => `
+                <tr>
+                    <td><strong>${order.orderNumber}</strong></td>
+                    <td>${order.customer.name}</td>
+                    <td>${order.customer.phone}</td>
+                    <td>${order.items.length} items</td>
+                    <td><strong>Rs. ${order.total.toLocaleString()}</strong></td>
+                    <td><span class="badge badge-${getPaymentBadge(order.paymentStatus)}">${order.paymentStatus}</span></td>
+                    <td><span class="badge badge-${getStatusBadge(order.orderStatus)}">${order.orderStatus}</span></td>
+                    <td>${new Date(order.createdAt).toLocaleDateString()}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <a href="order-detail.html?id=${order._id}" class="btn btn-sm btn-info" title="View Details">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <button onclick="deleteOrder('${order._id}')" class="btn btn-sm btn-danger" title="Delete">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        function getPaymentBadge(status) {
+            const badges = {
+                'pending': 'warning',
+                'received': 'info',
+                'verified': 'success',
+                'rejected': 'danger'
+            };
+            return badges[status] || 'secondary';
+        }
+        
+        function getStatusBadge(status) {
+            const badges = {
+                'pending': 'warning',
+                'confirmed': 'info',
+                'processing': 'primary',
+                'shipped': 'success',
+                'delivered': 'success',
+                'cancelled': 'danger'
+            };
+            return badges[status] || 'secondary';
+        }
+        
+        async function deleteOrder(id) {
+            if (!confirm('Are you sure you want to delete this order?')) return;
+            
+            const token = localStorage.getItem('admin_token');
+            
+            try {
+                const response = await fetch(`${API_URL}/orders/${id}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                if (response.ok) {
+                    alert('Order deleted successfully');
+                    loadOrders();
+                }
+            } catch (error) {
+                alert('Error deleting order');
+            }
+        }
+        
+        // Search
+        document.getElementById('searchOrder')?.addEventListener('input', (e) => {
+            const search = e.target.value.toLowerCase();
+            const filtered = allOrders.filter(o => 
+                o.orderNumber.toLowerCase().includes(search) ||
+                o.customer.name.toLowerCase().includes(search) ||
+                o.customer.phone.includes(search)
+            );
+            renderOrders(filtered);
+        });
+        
+        // Filter by status
+        document.getElementById('filterStatus')?.addEventListener('change', applyFilters);
+        document.getElementById('filterPayment')?.addEventListener('change', applyFilters);
+        
+        function applyFilters() {
+            const statusFilter = document.getElementById('filterStatus').value;
+            const paymentFilter = document.getElementById('filterPayment').value;
+            
+            let filtered = allOrders;
+            
+            if (statusFilter) {
+                filtered = filtered.filter(o => o.orderStatus === statusFilter);
+            }
+            if (paymentFilter) {
+                filtered = filtered.filter(o => o.paymentStatus === paymentFilter);
+            }
+            
+            renderOrders(filtered);
+        }
+        
+        loadOrders();
+    </script>
+</body>
+</html>

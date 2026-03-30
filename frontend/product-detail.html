@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Aura Studio</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-content">
+                <div class="top-bar-left">
+                    <span><i class="fas fa-truck"></i> Free Delivery on Orders Above Rs. 5000</span>
+                </div>
+                <div class="top-bar-right">
+                    <a href="https://wa.me/923214153050" target="_blank"><i class="fab fa-whatsapp"></i> +92 321 4153050</a>
+                    <a href="mailto:info@aurastudiopk.com"><i class="fas fa-envelope"></i> info@aurastudiopk.com</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html"><h1>Aura<span>Studio</span></h1></a>
+                </div>
+                
+                <nav class="nav-menu" id="navMenu">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li class="dropdown">
+                            <a href="products.html">Shop <i class="fas fa-chevron-down"></i></a>
+                            <ul class="dropdown-menu" id="categoryDropdown"></ul>
+                        </li>
+                        <li><a href="products.html?featured=true">Featured</a></li>
+                        <li><a href="products.html?newArrivals=true">New Arrivals</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+
+                <div class="header-icons">
+                    <a href="#" class="search-icon" id="searchToggle"><i class="fas fa-search"></i></a>
+                    <a href="cart.html" class="cart-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </a>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+                </div>
+            </div>
+
+            <div class="search-bar" id="searchBar">
+                <form action="products.html" method="GET">
+                    <input type="text" name="search" placeholder="Search for suits...">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <!-- Product Detail Section -->
+    <section class="product-detail-section">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span>/</span>
+                <a href="products.html">Shop</a>
+                <span>/</span>
+                <span id="productBreadcrumb">Product</span>
+            </nav>
+
+            <div class="product-detail" id="productDetail">
+                <!-- Loading -->
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>Loading product...</p>
+                </div>
+            </div>
+
+            <!-- Product Detail Template (will be filled by JS) -->
+            <template id="productTemplate">
+                <div class="product-gallery">
+                    <div class="main-image">
+                        <img id="mainImage" src="" alt="">
+                        <div class="image-zoom"></div>
+                        <button class="gallery-nav prev"><i class="fas fa-chevron-left"></i></button>
+                        <button class="gallery-nav next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="thumbnail-images" id="thumbnails">
+                        <!-- Thumbnails will be added here -->
+                    </div>
+                </div>
+
+                <div class="product-info">
+                    <div class="product-badges">
+                        <!-- Badges will be added dynamically -->
+                    </div>
+                    <h1 class="product-title" id="productTitle"></h1>
+                    <div class="product-category" id="productCategory"></div>
+                    
+                    <div class="product-price" id="productPrice">
+                        <!-- Price will be added here -->
+                    </div>
+
+                    <div class="product-description" id="productDescription">
+                        <!-- Description will be added here -->
+                    </div>
+
+                    <div class="product-options">
+                        <!-- Size Selection -->
+                        <div class="option-group" id="sizeGroup">
+                            <label>Select Size:</label>
+                            <div class="size-options" id="sizeOptions">
+                                <!-- Sizes will be added here -->
+                            </div>
+                        </div>
+
+                        <!-- Color Selection -->
+                        <div class="option-group" id="colorGroup">
+                            <label>Select Color:</label>
+                            <div class="color-options" id="colorOptions">
+                                <!-- Colors will be added here -->
+                            </div>
+                        </div>
+
+                        <!-- Quantity -->
+                        <div class="option-group">
+                            <label>Quantity:</label>
+                            <div class="quantity-selector">
+                                <button class="qty-btn minus" id="qtyMinus">-</button>
+                                <input type="number" id="quantity" value="1" min="1" max="10">
+                                <button class="qty-btn plus" id="qtyPlus">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-stock" id="productStock"></div>
+
+                    <div class="product-actions">
+                        <button class="btn btn-primary btn-lg add-to-cart" id="addToCart">
+                            <i class="fas fa-shopping-bag"></i> Add to Cart
+                        </button>
+                        <button class="btn btn-secondary btn-lg buy-now" id="buyNow">
+                            <i class="fas fa-bolt"></i> Buy Now
+                        </button>
+                    </div>
+
+                    <div class="product-meta">
+                        <p><strong>SKU:</strong> <span id="productSku"></span></p>
+                        <p><strong>Fabric:</strong> <span id="productFabric"></span></p>
+                        <p><strong>Category:</strong> <span id="productCat"></span></p>
+                    </div>
+
+                    <div class="product-share">
+                        <span>Share:</span>
+                        <a href="#" class="share-btn facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="share-btn twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="share-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="share-btn pinterest"><i class="fab fa-pinterest-p"></i></a>
+                    </div>
+
+                    <!-- WhatsApp Inquiry -->
+                    <div class="whatsapp-inquiry">
+                        <a href="https://wa.me/923214153050" target="_blank" class="btn btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> Inquire on WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </section>
+
+    <!-- Product Tabs -->
+    <section class="product-tabs-section">
+        <div class="container">
+            <div class="product-tabs">
+                <button class="tab-btn active" data-tab="description">Description</button>
+                <button class="tab-btn" data-tab="sizing">Size Guide</button>
+                <button class="tab-btn" data-tab="shipping">Shipping & Returns</button>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane active" id="description">
+                    <div id="fullDescription"></div>
+                </div>
+                <div class="tab-pane" id="sizing">
+                    <h3>Size Guide for Ladies Suits</h3>
+                    <table class="size-table">
+                        <thead>
+                            <tr>
+                                <th>Size</th>
+                                <th>Chest (inches)</th>
+                                <th>Waist (inches)</th>
+                                <th>Hip (inches)</th>
+                                <th>Shirt Length</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>XS</td><td>32-34</td><td>26-28</td><td>34-36</td><td>38"</td></tr>
+                            <tr><td>S</td><td>34-36</td><td>28-30</td><td>36-38</td><td>40"</td></tr>
+                            <tr><td>M</td><td>36-38</td><td>30-32</td><td>38-40</td><td>42"</td></tr>
+                            <tr><td>L</td><td>38-40</td><td>32-34</td><td>40-42</td><td>44"</td></tr>
+                            <tr><td>XL</td><td>40-42</td><td>34-36</td><td>42-44</td><td>46"</td></tr>
+                            <tr><td>XXL</td><td>42-44</td><td>36-38</td><td>44-46</td><td>48"</td></tr>
+                        </tbody>
+                    </table>
+                    <p class="size-note"><strong>Note:</strong> For custom sizing, please contact us on WhatsApp.</p>
+                </div>
+                <div class="tab-pane" id="shipping">
+                    <h3>Shipping Information</h3>
+                    <ul>
+                        <li><strong>Free Delivery:</strong> On orders above Rs. 5000</li>
+                        <li><strong>Standard Delivery:</strong> Rs. 200 (3-5 business days)</li>
+                        <li><strong>Express Delivery:</strong> Rs. 350 (1-2 business days)</li>
+                    </ul>
+                    <h3>Return Policy</h3>
+                    <ul>
+                        <li>7 days easy return policy</li>
+                        <li>Product must be unused and in original packaging</li>
+                        <li>Contact us on WhatsApp to initiate return</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Products -->
+    <section class="products-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>You May Also Like</h2>
+                <p>Similar products you might love</p>
+            </div>
+            <div class="products-grid" id="relatedProducts">
+                <!-- Related products will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo"><h2>Aura<span>Studio</span></h2></div>
+                    <p>Your premier destination for exquisite Pakistani stitched ladies suits.</p>
+                    <div class="footer-social">
+                        <a href="https://facebook.com/aurastudiopk" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://instagram.com/aurastudiopk" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://twitter.com/aurastudiopk" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://tiktok.com/@aurastudiopk" target="_blank"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://youtube.com/@aurastudiopk" target="_blank"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Shop</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-phone"></i><span>+92 321 4153050</span></li>
+                        <li><i class="fab fa-whatsapp"></i><a href="https://wa.me/923214153050">WhatsApp Us</a></li>
+                        <li><i class="fas fa-envelope"></i><a href="mailto:info@aurastudiopk.com">info@aurastudiopk.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Aura Studio. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/923214153050" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <button class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></button>
+
+    <script src="js/main.js"></script>
+    <script src="js/product-detail.js"></script>
+</body>
+</html>

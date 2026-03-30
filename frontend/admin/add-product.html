@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product - Aura Studio Admin</title>
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>Aura<span>Studio</span></h2>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="products.html" class="nav-item active">
+                <i class="fas fa-box"></i>
+                <span>Products</span>
+            </a>
+            <a href="categories.html" class="nav-item">
+                <i class="fas fa-tags"></i>
+                <span>Categories</span>
+            </a>
+            <a href="orders.html" class="nav-item">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Orders</span>
+            </a>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <a href="../index.html" target="_blank" class="nav-item">
+                <i class="fas fa-globe"></i>
+                <span>View Website</span>
+            </a>
+            <button class="nav-item logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="topbar">
+            <button class="mobile-sidebar-toggle" id="mobileSidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1>Add New Product</h1>
+            <div class="topbar-right">
+                <div class="admin-profile">
+                    <i class="fas fa-user-circle"></i>
+                    <span id="adminName">Admin</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-content">
+            <form id="productForm" class="product-form" enctype="multipart/form-data">
+                <div class="form-grid">
+                    <!-- Left Column -->
+                    <div class="form-column">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Basic Information</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label>Product Name *</label>
+                                    <input type="text" name="name" required placeholder="Enter product name">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Description *</label>
+                                    <textarea name="description" rows="6" required placeholder="Enter product description"></textarea>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Price (Rs.) *</label>
+                                        <input type="number" name="price" required placeholder="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Sale Price (Rs.)</label>
+                                        <input type="number" name="salePrice" placeholder="0">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Category *</label>
+                                    <select name="category" id="categorySelect" required>
+                                        <option value="">Select Category</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Fabric</label>
+                                        <input type="text" name="fabric" placeholder="e.g., Lawn, Chiffon">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Stock *</label>
+                                        <input type="number" name="stock" required placeholder="0">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Sizes & Colors -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Sizes & Colors</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label>Available Sizes</label>
+                                    <div class="checkbox-group">
+                                        <label><input type="checkbox" name="sizes[]" value="XS"> XS</label>
+                                        <label><input type="checkbox" name="sizes[]" value="S"> S</label>
+                                        <label><input type="checkbox" name="sizes[]" value="M"> M</label>
+                                        <label><input type="checkbox" name="sizes[]" value="L"> L</label>
+                                        <label><input type="checkbox" name="sizes[]" value="XL"> XL</label>
+                                        <label><input type="checkbox" name="sizes[]" value="XXL"> XXL</label>
+                                        <label><input type="checkbox" name="sizes[]" value="Custom"> Custom</label>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Colors</label>
+                                    <div id="colorsList">
+                                        <div class="color-item">
+                                            <input type="text" name="colors[][name]" placeholder="Color Name" class="color-name">
+                                            <input type="color" name="colors[][code]" class="color-picker">
+                                            <button type="button" class="btn btn-sm btn-danger remove-color">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-sm btn-secondary" id="addColor">
+                                        <i class="fas fa-plus"></i> Add Color
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Column -->
+                    <div class="form-column">
+                        <!-- Images -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Product Images</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="image-upload-area">
+                                    <input type="file" id="productImages" name="images" multiple accept="image/*">
+                                    <div class="upload-placeholder">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <p>Click to upload or drag & drop</p>
+                                        <span>You can upload up to 5 images</span>
+                                    </div>
+                                    <div class="image-previews" id="imagePreviews"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Settings -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Product Settings</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label class="switch-label">
+                                        <input type="checkbox" name="isActive" checked>
+                                        <span class="switch"></span>
+                                        <span>Active</span>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="switch-label">
+                                        <input type="checkbox" name="isFeatured">
+                                        <span class="switch"></span>
+                                        <span>Featured Product</span>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="switch-label">
+                                        <input type="checkbox" name="isNewArrival">
+                                        <span class="switch"></span>
+                                        <span>New Arrival</span>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="switch-label">
+                                        <input type="checkbox" name="isBestSeller">
+                                        <span class="switch"></span>
+                                        <span>Best Seller</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Form Actions -->
+                <div class="form-actions">
+                    <a href="products.html" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Product
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script src="../js/admin.js"></script>
+    <script>
+        // Load Categories
+        async function loadCategories() {
+            try {
+                const response = await fetch(`${API_URL}/categories`);
+                const categories = await response.json();
+                
+                const select = document.getElementById('categorySelect');
+                categories.forEach(cat => {
+                    const option = document.createElement('option');
+                    option.value = cat._id;
+                    option.textContent = cat.name;
+                    select.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error loading categories:', error);
+            }
+        }
+        
+        // Image Preview
+        document.getElementById('productImages').addEventListener('change', function(e) {
+            const previews = document.getElementById('imagePreviews');
+            previews.innerHTML = '';
+            
+            Array.from(e.target.files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const div = document.createElement('div');
+                    div.className = 'image-preview-item';
+                    div.innerHTML = `
+                        <img src="${e.target.result}" alt="Preview">
+                        <button type="button" class="remove-preview"><i class="fas fa-times"></i></button>
+                    `;
+                    previews.appendChild(div);
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+        
+        // Add Color
+        document.getElementById('addColor').addEventListener('click', () => {
+            const colorsList = document.getElementById('colorsList');
+            const newColor = document.createElement('div');
+            newColor.className = 'color-item';
+            newColor.innerHTML = `
+                <input type="text" name="colors[][name]" placeholder="Color Name" class="color-name">
+                <input type="color" name="colors[][code]" class="color-picker">
+                <button type="button" class="btn btn-sm btn-danger remove-color">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            colorsList.appendChild(newColor);
+        });
+        
+        // Remove Color
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.remove-color')) {
+                e.target.closest('.color-item').remove();
+            }
+        });
+        
+        // Form Submit
+        document.getElementById('productForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            
+            // Handle sizes
+            const sizes = [];
+            document.querySelectorAll('input[name="sizes[]"]:checked').forEach(cb => {
+                sizes.push(cb.value);
+            });
+            formData.delete('sizes[]');
+            formData.append('sizes', JSON.stringify(sizes));
+            
+            // Handle colors
+            const colors = [];
+            const colorItems = document.querySelectorAll('.color-item');
+            colorItems.forEach(item => {
+                const name = item.querySelector('.color-name').value;
+                const code = item.querySelector('.color-picker').value;
+                if (name) colors.push({ name, code });
+            });
+            formData.delete('colors[][name]');
+            formData.delete('colors[][code]');
+            formData.append('colors', JSON.stringify(colors));
+            
+            const token = localStorage.getItem('admin_token');
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+            
+            try {
+                const response = await fetch(`${API_URL}/products`, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${token}` },
+                    body: formData
+                });
+                
+                if (response.ok) {
+                    alert('Product added successfully!');
+                    window.location.href = 'products.html';
+                } else {
+                    alert('Error adding product');
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fas fa-save"></i> Save Product';
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-save"></i> Save Product';
+            }
+        });
+        
+        loadCategories();
+    </script>
+</body>
+</html>

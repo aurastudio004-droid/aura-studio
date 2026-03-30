@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - Aura Studio</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-content">
+                <div class="top-bar-left">
+                    <span><i class="fas fa-truck"></i> Free Delivery on Orders Above Rs. 5000</span>
+                </div>
+                <div class="top-bar-right">
+                    <a href="https://wa.me/923214153050" target="_blank"><i class="fab fa-whatsapp"></i> +92 321 4153050</a>
+                    <a href="mailto:info@aurastudiopk.com"><i class="fas fa-envelope"></i> info@aurastudiopk.com</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html"><h1>Aura<span>Studio</span></h1></a>
+                </div>
+                
+                <nav class="nav-menu" id="navMenu">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li class="dropdown">
+                            <a href="products.html">Shop <i class="fas fa-chevron-down"></i></a>
+                            <ul class="dropdown-menu" id="categoryDropdown"></ul>
+                        </li>
+                        <li><a href="products.html?featured=true">Featured</a></li>
+                        <li><a href="products.html?newArrivals=true">New Arrivals</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+
+                <div class="header-icons">
+                    <a href="#" class="search-icon" id="searchToggle"><i class="fas fa-search"></i></a>
+                    <a href="cart.html" class="cart-icon active">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </a>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Shopping Cart</h1>
+            <nav class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span>/</span>
+                <span>Cart</span>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Cart Section -->
+    <section class="cart-section">
+        <div class="container">
+            <!-- Empty Cart -->
+            <div class="empty-cart" id="emptyCart" style="display: none;">
+                <i class="fas fa-shopping-bag"></i>
+                <h2>Your Cart is Empty</h2>
+                <p>Looks like you haven't added anything to your cart yet.</p>
+                <a href="products.html" class="btn btn-primary">Continue Shopping</a>
+            </div>
+
+            <!-- Cart Content -->
+            <div class="cart-content" id="cartContent">
+                <div class="cart-items">
+                    <table class="cart-table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Subtotal</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cartItems">
+                            <!-- Cart items will be loaded dynamically -->
+                        </tbody>
+                    </table>
+
+                    <div class="cart-actions">
+                        <a href="products.html" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Continue Shopping
+                        </a>
+                        <button class="btn btn-outline" id="clearCart">
+                            <i class="fas fa-trash"></i> Clear Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="cart-summary">
+                    <h3>Order Summary</h3>
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span id="cartSubtotal">Rs. 0</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Shipping</span>
+                        <span id="cartShipping">Calculated at checkout</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total</span>
+                        <span id="cartTotal">Rs. 0</span>
+                    </div>
+                    <a href="checkout.html" class="btn btn-primary btn-block" id="checkoutBtn">
+                        Proceed to Checkout <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <div class="payment-info">
+                        <p><i class="fas fa-shield-alt"></i> Secure Checkout</p>
+                        <div class="payment-icons">
+                            <img src="images/easypaisa.png" alt="Easypaisa">
+                            <img src="images/jazzcash.png" alt="JazzCash">
+                            <img src="images/bank.png" alt="Bank">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo"><h2>Aura<span>Studio</span></h2></div>
+                    <p>Your premier destination for exquisite Pakistani stitched ladies suits.</p>
+                    <div class="footer-social">
+                        <a href="https://facebook.com/aurastudiopk" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://instagram.com/aurastudiopk" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://twitter.com/aurastudiopk" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://tiktok.com/@aurastudiopk" target="_blank"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://youtube.com/@aurastudiopk" target="_blank"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Shop</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-phone"></i><span>+92 321 4153050</span></li>
+                        <li><i class="fab fa-whatsapp"></i><a href="https://wa.me/923214153050">WhatsApp Us</a></li>
+                        <li><i class="fas fa-envelope"></i><a href="mailto:info@aurastudiopk.com">info@aurastudiopk.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Aura Studio. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/923214153050" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <button class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></button>
+
+    <script src="js/main.js"></script>
+    <script src="js/cart.js"></script>
+</body>
+</html>

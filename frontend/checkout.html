@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Aura Studio</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-content">
+                <div class="top-bar-left">
+                    <span><i class="fas fa-truck"></i> Free Delivery on Orders Above Rs. 5000</span>
+                </div>
+                <div class="top-bar-right">
+                    <a href="https://wa.me/923214153050" target="_blank"><i class="fab fa-whatsapp"></i> +92 321 4153050</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html"><h1>Aura<span>Studio</span></h1></a>
+                </div>
+                
+                <nav class="nav-menu" id="navMenu">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Shop</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+
+                <div class="header-icons">
+                    <a href="cart.html" class="cart-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </a>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Checkout</h1>
+            <nav class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span>/</span>
+                <a href="cart.html">Cart</a>
+                <span>/</span>
+                <span>Checkout</span>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Checkout Section -->
+    <section class="checkout-section">
+        <div class="container">
+            <form id="checkoutForm" enctype="multipart/form-data">
+                <div class="checkout-grid">
+                    <!-- Billing Details -->
+                    <div class="checkout-form">
+                        <h2>Billing Details</h2>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="customerName">Full Name *</label>
+                                <input type="text" id="customerName" name="customerName" required placeholder="Enter your full name">
+                            </div>
+                        </div>
+
+                        <div class="form-row two-col">
+                            <div class="form-group">
+                                <label for="customerEmail">Email Address *</label>
+                                <input type="email" id="customerEmail" name="customerEmail" required placeholder="your@email.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="customerPhone">Phone Number *</label>
+                                <input type="tel" id="customerPhone" name="customerPhone" required placeholder="03XX XXXXXXX">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="customerWhatsapp">WhatsApp Number (for order updates)</label>
+                                <input type="tel" id="customerWhatsapp" name="customerWhatsapp" placeholder="03XX XXXXXXX">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="customerAddress">Full Address *</label>
+                                <textarea id="customerAddress" name="customerAddress" required placeholder="House no, Street, Area"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-row two-col">
+                            <div class="form-group">
+                                <label for="customerCity">City *</label>
+                                <select id="customerCity" name="customerCity" required>
+                                    <option value="">Select City</option>
+                                    <option value="Karachi">Karachi</option>
+                                    <option value="Lahore">Lahore</option>
+                                    <option value="Islamabad">Islamabad</option>
+                                    <option value="Rawalpindi">Rawalpindi</option>
+                                    <option value="Faisalabad">Faisalabad</option>
+                                    <option value="Multan">Multan</option>
+                                    <option value="Peshawar">Peshawar</option>
+                                    <option value="Quetta">Quetta</option>
+                                    <option value="Sialkot">Sialkot</option>
+                                    <option value="Gujranwala">Gujranwala</option>
+                                    <option value="Hyderabad">Hyderabad</option>
+                                    <option value="Bahawalpur">Bahawalpur</option>
+                                    <option value="Sargodha">Sargodha</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="customerProvince">Province *</label>
+                                <select id="customerProvince" name="customerProvince" required>
+                                    <option value="">Select Province</option>
+                                    <option value="Punjab">Punjab</option>
+                                    <option value="Sindh">Sindh</option>
+                                    <option value="KPK">Khyber Pakhtunkhwa</option>
+                                    <option value="Balochistan">Balochistan</option>
+                                    <option value="Islamabad">Islamabad Capital Territory</option>
+                                    <option value="AJK">Azad Jammu & Kashmir</option>
+                                    <option value="GB">Gilgit-Baltistan</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="customerPostalCode">Postal Code (Optional)</label>
+                                <input type="text" id="customerPostalCode" name="customerPostalCode" placeholder="XXXXX">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="orderNotes">Order Notes (Optional)</label>
+                                <textarea id="orderNotes" name="orderNotes" placeholder="Any special instructions for your order"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Payment Method -->
+                        <h2>Payment Method</h2>
+                        <div class="payment-methods">
+                            <label class="payment-option">
+                                <input type="radio" name="paymentMethod" value="easypaisa" required>
+                                <div class="payment-card">
+                                    <img src="images/easypaisa.png" alt="Easypaisa">
+                                    <span>Easypaisa</span>
+                                </div>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="paymentMethod" value="jazzcash">
+                                <div class="payment-card">
+                                    <img src="images/jazzcash.png" alt="JazzCash">
+                                    <span>JazzCash</span>
+                                </div>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="paymentMethod" value="bank">
+                                <div class="payment-card">
+                                    <img src="images/bank.png" alt="Bank Transfer">
+                                    <span>Bank Transfer</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Payment Details Box -->
+                        <div class="payment-details-box" id="paymentDetails" style="display: none;">
+                            <div class="payment-info-card" id="easypaisaInfo" style="display: none;">
+                                <h3><i class="fas fa-mobile-alt"></i> Easypaisa Payment Details</h3>
+                                <div class="account-info">
+                                    <p><strong>Account Title:</strong> Aura Studio</p>
+                                    <p><strong>Account Number:</strong> <span class="copy-text" id="easypaisaNumber">0321-4153050</span> 
+                                        <button type="button" class="copy-btn" onclick="copyToClipboard('0321-4153050')"><i class="fas fa-copy"></i></button>
+                                    </p>
+                                </div>
+                                <div class="payment-steps">
+                                    <h4>Steps to Pay:</h4>
+                                    <ol>
+                                        <li>Open Easypaisa App</li>
+                                        <li>Go to "Send Money"</li>
+                                        <li>Enter the account number above</li>
+                                        <li>Enter the total amount</li>
+                                        <li>Complete the transaction</li>
+                                        <li>Take a screenshot of payment confirmation</li>
+                                        <li>Upload screenshot below</li>
+                                    </ol>
+                                </div>
+                            </div>
+
+                            <div class="payment-info-card" id="jazzcashInfo" style="display: none;">
+                                <h3><i class="fas fa-mobile-alt"></i> JazzCash Payment Details</h3>
+                                <div class="account-info">
+                                    <p><strong>Account Title:</strong> Aura Studio</p>
+                                    <p><strong>Account Number:</strong> <span class="copy-text" id="jazzcashNumber">0321-4153050</span>
+                                        <button type="button" class="copy-btn" onclick="copyToClipboard('0321-4153050')"><i class="fas fa-copy"></i></button>
+                                    </p>
+                                </div>
+                                <div class="payment-steps">
+                                    <h4>Steps to Pay:</h4>
+                                    <ol>
+                                        <li>Open JazzCash App</li>
+                                        <li>Go to "Send Money"</li>
+                                        <li>Select "Mobile Account"</li>
+                                        <li>Enter the account number above</li>
+                                        <li>Enter the total amount</li>
+                                        <li>Complete the transaction</li>
+                                        <li>Take a screenshot of payment confirmation</li>
+                                        <li>Upload screenshot below</li>
+                                    </ol>
+                                </div>
+                            </div>
+
+                            <div class="payment-info-card" id="bankInfo" style="display: none;">
+                                <h3><i class="fas fa-university"></i> Bank Transfer Details</h3>
+                                <div class="account-info">
+                                    <p><strong>Bank Name:</strong> Meezan Bank</p>
+                                    <p><strong>Account Title:</strong> Aura Studio</p>
+                                    <p><strong>Account Number:</strong> <span class="copy-text">02340105671234</span>
+                                        <button type="button" class="copy-btn" onclick="copyToClipboard('02340105671234')"><i class="fas fa-copy"></i></button>
+                                    </p>
+                                    <p><strong>IBAN:</strong> <span class="copy-text">PK36MEZN0002340105671234</span>
+                                        <button type="button" class="copy-btn" onclick="copyToClipboard('PK36MEZN0002340105671234')"><i class="fas fa-copy"></i></button>
+                                    </p>
+                                </div>
+                                <div class="payment-steps">
+                                    <h4>Steps to Pay:</h4>
+                                    <ol>
+                                        <li>Login to your bank app or visit branch</li>
+                                        <li>Select "Fund Transfer" or "IBFT"</li>
+                                        <li>Enter the bank details above</li>
+                                        <li>Enter the total amount</li>
+                                        <li>Complete the transaction</li>
+                                        <li>Take a screenshot of payment confirmation</li>
+                                        <li>Upload screenshot below</li>
+                                    </ol>
+                                </div>
+                            </div>
+
+                            <!-- Screenshot Upload -->
+                            <div class="screenshot-upload">
+                                <h4><i class="fas fa-camera"></i> Upload Payment Screenshot *</h4>
+                                <p class="upload-note">Please upload a clear screenshot of your payment confirmation</p>
+                                <div class="upload-area" id="uploadArea">
+                                    <input type="file" id="paymentScreenshot" name="paymentScreenshot" accept="image/*" required>
+                                    <div class="upload-placeholder">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <p>Click to upload or drag & drop</p>
+                                        <span>PNG, JPG up to 5MB</span>
+                                    </div>
+                                    <div class="upload-preview" id="uploadPreview" style="display: none;">
+                                        <img id="previewImage" src="" alt="Preview">
+                                        <button type="button" class="remove-image" id="removeImage"><i class="fas fa-times"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Order Summary -->
+                    <div class="order-summary">
+                        <h2>Order Summary</h2>
+                        <div class="order-items" id="orderItems">
+                            <!-- Items will be loaded dynamically -->
+                        </div>
+
+                        <div class="order-totals">
+                            <div class="total-row">
+                                <span>Subtotal</span>
+                                <span id="orderSubtotal">Rs. 0</span>
+                            </div>
+                            <div class="total-row">
+                                <span>Shipping</span>
+                                <span id="orderShipping">Rs. 0</span>
+                            </div>
+                            <div class="total-row discount" id="discountRow" style="display: none;">
+                                <span>Discount</span>
+                                <span id="orderDiscount">- Rs. 0</span>
+                            </div>
+                            <div class="total-row grand-total">
+                                <span>Total</span>
+                                <span id="orderTotal">Rs. 0</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block btn-lg" id="placeOrderBtn">
+                            <i class="fas fa-lock"></i> Place Order
+                        </button>
+
+                        <div class="secure-checkout">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Your information is secure and encrypted</span>
+                        </div>
+
+                        <div class="checkout-help">
+                            <p>Need help? Contact us:</p>
+                            <a href="https://wa.me/923214153050" class="btn btn-whatsapp btn-sm">
+                                <i class="fab fa-whatsapp"></i> WhatsApp Support
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Order Success Modal -->
+    <div class="modal" id="orderSuccessModal">
+        <div class="modal-content success-modal">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Order Placed Successfully!</h2>
+            <p>Thank you for shopping with Aura Studio</p>
+            <div class="order-details-box">
+                <p><strong>Order Number:</strong> <span id="successOrderNumber"></span></p>
+                <p>We have received your order and payment screenshot.</p>
+                <p>You will receive a confirmation on WhatsApp shortly.</p>
+            </div>
+            <div class="success-actions">
+                <a href="index.html" class="btn btn-primary">Continue Shopping</a>
+                <a href="https://wa.me/923214153050" target="_blank" class="btn btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> Contact Us
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo"><h2>Aura<span>Studio</span></h2></div>
+                    <p>Your premier destination for exquisite Pakistani stitched ladies suits.</p>
+                    <div class="footer-social">
+                        <a href="https://facebook.com/aurastudiopk" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://instagram.com/aurastudiopk" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://twitter.com/aurastudiopk" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://tiktok.com/@aurastudiopk" target="_blank"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://youtube.com/@aurastudiopk" target="_blank"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Shop</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-phone"></i><span>+92 321 4153050</span></li>
+                        <li><i class="fab fa-whatsapp"></i><a href="https://wa.me/923214153050">WhatsApp Us</a></li>
+                        <li><i class="fas fa-envelope"></i><a href="mailto:info@aurastudiopk.com">info@aurastudiopk.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Aura Studio. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/923214153050" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+    <script src="js/main.js"></script>
+    <script src="js/checkout.js"></script>
+</body>
+</html>

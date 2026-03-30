@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details - Aura Studio Admin</title>
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>Aura<span>Studio</span></h2>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="products.html" class="nav-item">
+                <i class="fas fa-box"></i>
+                <span>Products</span>
+            </a>
+            <a href="categories.html" class="nav-item">
+                <i class="fas fa-tags"></i>
+                <span>Categories</span>
+            </a>
+            <a href="orders.html" class="nav-item active">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Orders</span>
+            </a>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <a href="../index.html" target="_blank" class="nav-item">
+                <i class="fas fa-globe"></i>
+                <span>View Website</span>
+            </a>
+            <button class="nav-item logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="topbar">
+            <button class="mobile-sidebar-toggle" id="mobileSidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1>Order Details</h1>
+            <div class="topbar-right">
+                <div class="admin-profile">
+                    <i class="fas fa-user-circle"></i>
+                    <span id="adminName">Admin</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-content" id="orderContent">
+            <div class="loading-center">Loading...</div>
+        </div>
+    </main>
+
+    <script src="../js/admin.js"></script>
+    <script>
+        async function loadOrderDetail() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderId = urlParams.get('id');
+            
+            if (!orderId) {
+                window.location.href = 'orders.html';
+                return;
+            }
+            
+            const token = localStorage.getItem('admin_token');
+            
+            try {
+                const response = await fetch(`${API_URL}/orders/${orderId}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                const order = await response.json();
+                renderOrderDetail(order);
+                
+            } catch (error) {
+                console.error('Error loading order:', error);
+                document.getElementById('orderContent').innerHTML = '<p class="error">Error loading order details</p>';
+            }
+        }
+        
+        function renderOrderDetail(order) {
+            const container = document.getElementById('orderContent');
+            
+            container.innerHTML = `
+                <div class="order-detail-header">
+                    <div>
+                        <h2>Order #${order.orderNumber}</h2>
+                        <p>Placed on ${new Date(order.createdAt).toLocaleString()}</p>
+                    </div>
+                    <a href="orders.html" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to Orders
+                    </a>
+                </div>
+                
+                <div class="order-detail-grid">
+                    <!-- Customer Info -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Customer Information</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="info-row">
+                                <strong>Name:</strong>
+                                <span>${order.customer.name}</span>
+                            </div>
+                            <div class="info-row">
+                                <strong>Email:</strong>
+                                <span>${order.customer.email}</span>
+                            </div>
+                            <div class="info-row">
+                                <strong>Phone:</strong>
+                                <span>${order.customer.phone}</span>
+                            </div>
+                            <div class="info-row">
+                                <strong>WhatsApp:</strong>
+                                <span>${order.customer.whatsapp || order.customer.phone}</span>
+                            </div>
+                            <div class="info-row">
+                                <strong>Address:</strong>
+                                <span>${order.customer.address}, ${order.customer.city}, ${order.customer.province}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Order Items -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Order Items</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="order-items-list">
+                                ${order.items.map(item => `
+                                    <div class="order-item-row">
+                                        <img src="${item.productImage}" alt="${item.productName}">
+                                        <div class="item-info">
+                                            <h4>${item.productName}</h4>
+                                            <p>Size: ${item.size} | Color: ${item.color}</p>
+                                            <p>Qty: ${item.quantity}</p>
+                                        </div>
+                                        <div class="item-price">
+                                            Rs. ${item.subtotal.toLocaleString()}
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div class="order-totals">
+                                <div class="total-row">
+                                    <span>Subtotal:</span>
+                                    <span>Rs. ${order.subtotal.toLocaleString()}</span>
+                                </div>
+                                <div class="total-row">
+                                    <span>Shipping:</span>
+                                    <span>Rs. ${order.shippingCost.toLocaleString()}</span>
+                                </div>
+                                <div class="total-row grand">
+                                    <span>Total:</span>
+                                    <span>Rs. ${order.total.toLocaleString()}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Payment Info -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Payment Information</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="info-row">
+                                <strong>Method:</strong>
+                                <span class="text-capitalize">${order.paymentMethod}</span>
+                            </div>
+                            <div class="info-row">
+                                <strong>Status:</strong>
+                                <span class="badge badge-${getPaymentBadge(order.paymentStatus)}">${order.paymentStatus}</span>
+                            </div>
+                            ${order.paymentScreenshot ? `
+                                <div class="payment-screenshot">
+                                    <h4>Payment Screenshot:</h4>
+                                    <img src="${order.paymentScreenshot}" alt="Payment Screenshot" onclick="openImageModal(this.src)">
+                                </div>
+                            ` : ''}
+                            <div class="status-update">
+                                <label>Update Payment Status:</label>
+                                <select id="paymentStatus" class="form-control">
+                                    <option value="pending" ${order.paymentStatus === 'pending' ? 'selected' : ''}>Pending</option>
+                                    <option value="received" ${order.paymentStatus === 'received' ? 'selected' : ''}>Received</option>
+                                    <option value="verified" ${order.paymentStatus === 'verified' ? 'selected' : ''}>Verified</option>
+                                    <option value="rejected" ${order.paymentStatus === 'rejected' ? 'selected' : ''}>Rejected</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Order Status -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Order Status</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="status-update">
+                                <label>Order Status:</label>
+                                <select id="orderStatus" class="form-control">
+                                    <option value="pending" ${order.orderStatus === 'pending' ? 'selected' : ''}>Pending</option>
+                                    <option value="confirmed" ${order.orderStatus === 'confirmed' ? 'selected' : ''}>Confirmed</option>
+                                    <option value="processing" ${order.orderStatus === 'processing' ? 'selected' : ''}>Processing</option>
+                                    <option value="shipped" ${order.orderStatus === 'shipped' ? 'selected' : ''}>Shipped</option>
+                                    <option value="delivered" ${order.orderStatus === 'delivered' ? 'selected' : ''}>Delivered</option>
+                                    <option value="cancelled" ${order.orderStatus === 'cancelled' ? 'selected' : ''}>Cancelled</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Tracking Number:</label>
+                                <input type="text" id="trackingNumber" class="form-control" value="${order.trackingNumber || ''}" placeholder="Enter tracking number">
+                            </div>
+                            <div class="form-group">
+                                <label>Admin Notes:</label>
+                                <textarea id="adminNotes" class="form-control" rows="4">${order.adminNotes || ''}</textarea>
+                            </div>
+                            <button onclick="updateOrder('${order._id}')" class="btn btn-primary btn-block">
+                                <i class="fas fa-save"></i> Update Order
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        async function updateOrder(orderId) {
+            const token = localStorage.getItem('admin_token');
+            
+            const data = {
+                paymentStatus: document.getElementById('paymentStatus').value,
+                orderStatus: document.getElementById('orderStatus').value,
+                trackingNumber: document.getElementById('trackingNumber').value,
+                adminNotes: document.getElementById('adminNotes').value
+            };
+            
+            try {
+                const response = await fetch(`${API_URL}/orders/${orderId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                if (response.ok) {
+                    alert('Order updated successfully!');
+                    loadOrderDetail();
+                } else {
+                    alert('Error updating order');
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+        
+        function openImageModal(src) {
+            const modal = document.createElement('div');
+            modal.className = 'image-modal';
+            modal.innerHTML = `
+                <div class="modal-overlay" onclick="this.parentElement.remove()">
+                    <img src="${src}" alt="Payment Screenshot">
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        function getPaymentBadge(status) {
+            const badges = {
+                'pending': 'warning',
+                'received': 'info',
+                'verified': 'success',
+                'rejected': 'danger'
+            };
+            return badges[status] || 'secondary';
+        }
+        
+        loadOrderDetail();
+    </script>
+</body>
+</html>

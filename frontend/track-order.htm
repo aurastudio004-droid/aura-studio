@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Your Order - Aura Studio</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-content">
+                <div class="top-bar-left">
+                    <span><i class="fas fa-truck"></i> Free Delivery on Orders Above Rs. 5000</span>
+                </div>
+                <div class="top-bar-right">
+                    <a href="https://wa.me/923214153050" target="_blank"><i class="fab fa-whatsapp"></i> +92 321 4153050</a>
+                    <a href="mailto:info@aurastudiopk.com"><i class="fas fa-envelope"></i> info@aurastudiopk.com</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html"><h1>Aura<span>Studio</span></h1></a>
+                </div>
+                
+                <nav class="nav-menu" id="navMenu">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Shop</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+
+                <div class="header-icons">
+                    <a href="cart.html" class="cart-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </a>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Track Your Order</h1>
+            <nav class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span>/</span>
+                <span>Track Order</span>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Track Order Section -->
+    <section class="track-order-section">
+        <div class="container">
+            <div class="track-order-box">
+                <div class="track-form">
+                    <h2>Enter Your Order Number</h2>
+                    <p>You can find your order number in the confirmation message we sent you</p>
+                    
+                    <form id="trackForm">
+                        <div class="form-group">
+                            <input type="text" id="orderNumber" placeholder="e.g., AURA-12345678" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">
+                            <i class="fas fa-search"></i> Track Order
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Order Status (Hidden by default) -->
+                <div class="order-status" id="orderStatus" style="display: none;">
+                    <div class="status-header">
+                        <h3>Order: <span id="displayOrderNumber"></span></h3>
+                        <p>Placed on: <span id="orderDate"></span></p>
+                    </div>
+                    
+                    <div class="status-timeline">
+                        <div class="timeline-item" data-status="pending">
+                            <div class="timeline-icon"><i class="fas fa-clock"></i></div>
+                            <div class="timeline-content">
+                                <h4>Order Placed</h4>
+                                <p>Your order has been received</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item" data-status="confirmed">
+                            <div class="timeline-icon"><i class="fas fa-check"></i></div>
+                            <div class="timeline-content">
+                                <h4>Order Confirmed</h4>
+                                <p>Payment verified, order confirmed</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item" data-status="processing">
+                            <div class="timeline-icon"><i class="fas fa-cog"></i></div>
+                            <div class="timeline-content">
+                                <h4>Processing</h4>
+                                <p>Your order is being prepared</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item" data-status="shipped">
+                            <div class="timeline-icon"><i class="fas fa-shipping-fast"></i></div>
+                            <div class="timeline-content">
+                                <h4>Shipped</h4>
+                                <p>Your order is on the way</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item" data-status="delivered">
+                            <div class="timeline-icon"><i class="fas fa-home"></i></div>
+                            <div class="timeline-content">
+                                <h4>Delivered</h4>
+                                <p>Order delivered successfully</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tracking-info" id="trackingInfo" style="display: none;">
+                        <h4>Tracking Number:</h4>
+                        <p id="trackingNumber"></p>
+                    </div>
+                    
+                    <div class="status-footer">
+                        <p>Need help with your order?</p>
+                        <a href="https://wa.me/923214153050" target="_blank" class="btn btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> Contact Us on WhatsApp
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Error Message -->
+                <div class="order-error" id="orderError" style="display: none;">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <h3>Order Not Found</h3>
+                    <p>Please check your order number and try again</p>
+                    <button onclick="resetTracker()" class="btn btn-primary">Try Again</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo"><h2>Aura<span>Studio</span></h2></div>
+                    <p>Your premier destination for exquisite Pakistani stitched ladies suits.</p>
+                    <div class="footer-social">
+                        <a href="https://facebook.com/aurastudiopk" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://instagram.com/aurastudiopk" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://twitter.com/aurastudiopk" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://tiktok.com/@aurastudiopk" target="_blank"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://youtube.com/@aurastudiopk" target="_blank"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Shop</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-phone"></i><span>+92 321 4153050</span></li>
+                        <li><i class="fab fa-whatsapp"></i><a href="https://wa.me/923214153050">WhatsApp Us</a></li>
+                        <li><i class="fas fa-envelope"></i><a href="mailto:info@aurastudiopk.com">info@aurastudiopk.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Aura Studio. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/923214153050" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+    <style>
+        .track-order-section {
+            padding: 80px 0;
+        }
+        
+        .track-order-box {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--bg-white);
+            border-radius: 16px;
+            padding: 50px;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .track-form {
+            text-align: center;
+        }
+        
+        .track-form h2 {
+            font-family: var(--font-heading);
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        
+        .track-form > p {
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+        
+        .track-form input {
+            padding: 16px 20px;
+            font-size: 18px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        
+        .status-header {
+            text-align: center;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 30px;
+        }
+        
+        .status-header h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+        
+        .status-header h3 span {
+            color: var(--primary-color);
+        }
+        
+        .status-timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+        
+        .timeline-item {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            opacity: 0.4;
+        }
+        
+        .timeline-item.active,
+        .timeline-item.completed {
+            opacity: 1;
+        }
+        
+        .timeline-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--bg-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--text-light);
+            flex-shrink: 0;
+        }
+        
+        .timeline-item.completed .timeline-icon,
+        .timeline-item.active .timeline-icon {
+            background: var(--primary-color);
+            color: var(--bg-white);
+        }
+        
+        .timeline-item.active .timeline-icon {
+            animation: pulse 1.5s infinite;
+        }
+        
+        .timeline-content h4 {
+            margin-bottom: 5px;
+        }
+        
+        .timeline-content p {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        
+        .tracking-info {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .tracking-info h4 {
+            margin-bottom: 10px;
+        }
+        
+        .tracking-info p {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .status-footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .status-footer p {
+            margin-bottom: 15px;
+            color: var(--text-light);
+        }
+        
+        .order-error {
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .order-error i {
+            font-size: 60px;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+        
+        .order-error h3 {
+            margin-bottom: 10px;
+        }
+        
+        .order-error p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+    </style>
+
+    <script src="js/main.js"></script>
+    <script>
+        const statusOrder = ['pending', 'confirmed', 'processing', 'shipped', 'delivered'];
+        
+        document.getElementById('trackForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const orderNumber = document.getElementById('orderNumber').value.trim().toUpperCase();
+            
+            try {
+                const response = await fetch(`${API_URL}/orders/track/${orderNumber}`);
+                
+                if (response.ok) {
+                    const order = await response.json();
+                    showOrderStatus(order);
+                } else {
+                    showError();
+                }
+            } catch (error) {
+                showError();
+            }
+        });
+        
+        function showOrderStatus(order) {
+            document.querySelector('.track-form').style.display = 'none';
+            document.getElementById('orderError').style.display = 'none';
+            document.getElementById('orderStatus').style.display = 'block';
+            
+            document.getElementById('displayOrderNumber').textContent = order.orderNumber;
+            document.getElementById('orderDate').textContent = new Date(order.createdAt).toLocaleDateString();
+            
+            // Update timeline
+            const currentStatusIndex = statusOrder.indexOf(order.orderStatus);
+            
+            document.querySelectorAll('.timeline-item').forEach((item, index) => {
+                const status = item.dataset.status;
+                const statusIndex = statusOrder.indexOf(status);
+                
+                if (statusIndex < currentStatusIndex) {
+                    item.classList.add('completed');
+                    item.classList.remove('active');
+                } else if (statusIndex === currentStatusIndex) {
+                    item.classList.add('active');
+                    item.classList.remove('completed');
+                } else {
+                    item.classList.remove('active', 'completed');
+                }
+            });
+            
+            // Show tracking number if available
+            if (order.trackingNumber) {
+                document.getElementById('trackingInfo').style.display = 'block';
+                document.getElementById('trackingNumber').textContent = order.trackingNumber;
+            }
+        }
+        
+        function showError() {
+            document.querySelector('.track-form').style.display = 'none';
+            document.getElementById('orderStatus').style.display = 'none';
+            document.getElementById('orderError').style.display = 'block';
+        }
+        
+        function resetTracker() {
+            document.querySelector('.track-form').style.display = 'block';
+            document.getElementById('orderStatus').style.display = 'none';
+            document.getElementById('orderError').style.display = 'none';
+            document.getElementById('orderNumber').value = '';
+        }
+    </script>
+</body>
+</html>
